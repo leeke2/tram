@@ -119,7 +119,7 @@ fn _linear_congested_assign(
     let mut eff_arc_freqs = vec![INFINITY; arc_freqs.len()];
     eff_arc_freqs.clone_from_slice(&arc_freqs);
 
-    println!("Iteration {:5}: gap = {:.10}", n_iter, gap);
+    // println!("Iteration {:5}: gap = {:.10}", n_iter, gap);
 
     // while gap.abs() > 0.01 {
     while gap > tol {
@@ -148,7 +148,7 @@ fn _linear_congested_assign(
             &to,
         );
 
-        println!("Iteration {:5}: gap = {:.10}", n_iter, gap);
+        // println!("Iteration {:5}: gap = {:.10}", n_iter, gap);
 
         if n_iter == max_iters {
             break;
