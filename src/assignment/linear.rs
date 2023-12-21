@@ -39,6 +39,7 @@ pub fn mat_linear_assign(
         let ttt = u
             .par_iter()
             .zip(demands.par_iter())
+            .filter(|(a, b)| a.is_finite())
             .map(|(a, b)| *a * *b)
             .sum::<f32>();
 
