@@ -26,7 +26,7 @@ pub fn mat_linear_assign(
     freqs: Vec<f32>,
     travel_time_mat: Vec<Vec<f32>>,
     demands_mat: Vec<Vec<f32>>,
-) -> Vec<Vec<f32>> {
+) -> (Vec<Vec<f32>>, f32) {
     return py.allow_threads(|| {
         let mat_size = travel_time_mat.len();
 
@@ -36,7 +36,13 @@ pub fn mat_linear_assign(
         let dsts = (1..mat_size).collect::<Vec<_>>();
         let (u, _) = _linear_assign(&from, &to, &arc_freqs, &costs, &demands, &dsts);
 
-        return graph2mat(u, mat_size);
+        let ttt = u
+            .par_iter()
+            .zip(demands.par_iter())
+            .map(|(a, b)| *a * *b)
+            .sum::<f32>();
+
+        return (graph2mat(u, mat_size), ttt);
     });
 }
 

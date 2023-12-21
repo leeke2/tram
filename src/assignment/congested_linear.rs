@@ -52,7 +52,7 @@ pub fn mat_linear_congested_assign(
     beta: f32,
     tol: f32,
     max_iters: usize,
-) -> Vec<Vec<f32>> {
+) -> (Vec<Vec<f32>>, f32) {
     return py.allow_threads(|| {
         let mat_size = travel_time_mat.len();
 
@@ -74,7 +74,13 @@ pub fn mat_linear_congested_assign(
             max_iters,
         );
 
-        return graph2mat(u, mat_size);
+        let ttt = u
+            .par_iter()
+            .zip(demands.par_iter())
+            .map(|(a, b)| *a * *b)
+            .sum::<f32>();
+
+        return (graph2mat(u, mat_size), ttt);
     });
 }
 
