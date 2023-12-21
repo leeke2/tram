@@ -1,3 +1,6 @@
+import numpy.typing as npt
+import numpy as np
+
 def linear_assign(
     from_: list[int],
     to_: list[int],
@@ -9,8 +12,8 @@ def linear_assign(
 def mat_linear_assign(
     alignments: list[list[int]],
     freqs: list[float],
-    travel_time_mat: list[list[float]],
-    demands_mat: list[list[float]],
+    travel_time_mat: list[list[float]] | npt.NDArray[np.floating],
+    demands_mat: list[list[float]] | npt.NDArray[np.floating],
 ) -> tuple[list[list[float]], float]: ...
 def linear_congested_assign(
     from_: list[int],
@@ -28,8 +31,8 @@ def linear_congested_assign(
 def mat_linear_congested_assign(
     alignments: list[list[int]],
     freqs: list[float],
-    travel_time_mat: list[list[float]],
-    demands_mat: list[list[float]],
+    travel_time_mat: list[list[float]] | npt.NDArray[np.floating],
+    demands_mat: list[list[float]] | npt.NDArray[np.floating],
     capacity: float,
     average_decay_factor: float = 0.01,
     beta: float = 0.2,
