@@ -1,5 +1,7 @@
 use std::f32::INFINITY;
 
+use rayon::iter::{IntoParallelIterator, ParallelIterator};
+
 pub fn mat2graph(
     alignments: Vec<Vec<usize>>,
     freqs: Vec<f32>,
@@ -97,4 +99,13 @@ pub fn graph2mat(u: Vec<f32>, mat_size: usize) -> Vec<Vec<f32>> {
     }
 
     return umat;
+}
+
+pub fn sum_flows(v: Vec<f32>, n_dsts: usize) -> Vec<f32> {
+    let n_arcs = v.len() / n_dsts;
+
+    return (0..n_arcs)
+        .into_par_iter()
+        .map(|i| v[i..].iter().step_by(n_arcs).sum::<f32>())
+        .collect();
 }

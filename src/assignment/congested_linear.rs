@@ -1,5 +1,5 @@
 use crate::assignment::linear::_linear_assign;
-use crate::assignment::utils::{graph2mat, mat2graph};
+use crate::assignment::utils::{graph2mat, mat2graph, sum_flows};
 use pyo3::prelude::*;
 use rayon::iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use std::cmp;
@@ -52,7 +52,7 @@ pub fn mat_linear_congested_assign(
     beta: f32,
     tol: f32,
     max_iters: usize,
-) -> (Vec<Vec<f32>>, Vec<Vec<f32>>, f32) {
+) -> (Vec<Vec<f32>>, Vec<f32>, f32) {
     return py.allow_threads(|| {
         let mat_size = travel_time_mat.len();
 
@@ -77,11 +77,11 @@ pub fn mat_linear_congested_assign(
         let ttt = u
             .par_iter()
             .zip(demands.par_iter())
-            .filter(|(a, b)| a.is_finite())
+            .filter(|(a, _)| a.is_finite())
             .map(|(a, b)| *a * *b)
             .sum::<f32>();
 
-        return (graph2mat(u, mat_size), graph2mat(v, mat_size), ttt);
+        return (graph2mat(u, mat_size), sum_flows(v, mat_size - 1), ttt);
     });
 }
 

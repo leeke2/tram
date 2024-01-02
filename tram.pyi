@@ -14,7 +14,7 @@ def mat_linear_assign(
     freqs: list[float],
     travel_time_mat: list[list[float]] | npt.NDArray[np.floating],
     demands_mat: list[list[float]] | npt.NDArray[np.floating],
-) -> tuple[list[list[float]], float]: ...
+) -> tuple[list[list[float]], list[float], float]: ...
 def linear_congested_assign(
     from_: list[int],
     to_: list[int],
@@ -38,4 +38,4 @@ def mat_linear_congested_assign(
     beta: float = 0.2,
     tol: float = 0.001,
     max_iters: int = 1000,
-) -> tuple[list[list[float]], float]: ...
+) -> tuple[list[list[float]], list[float], float]: ...
