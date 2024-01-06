@@ -5,4 +5,3 @@ mod linear;
 pub use linear::*;
 
 mod utils;
-pub use utils::*;

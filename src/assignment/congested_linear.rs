@@ -254,8 +254,8 @@ fn _calc_eff_freqs(
             out[arc] = 0.0;
         }
 
-        if out[arc] < 1.0 / 16.7 {
-            out[arc] = 1.0 / 16.7;
+        if out[arc] < 1.0 / 999.0 {
+            out[arc] = 1.0 / 999.0;
         }
     }
 
