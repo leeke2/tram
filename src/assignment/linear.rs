@@ -100,7 +100,7 @@ fn _linear_assign_to_dest(
 
     fn fu(f: f32, u: f32) -> f32 {
         if f.abs() < 1e-8 && u.is_infinite() {
-            return 1.0;
+            return 0.5;
         }
 
         return f * u;
